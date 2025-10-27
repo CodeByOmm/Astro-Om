@@ -1,0 +1,181 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  theme?: string;
+  assetsPath?: string;
+  layoutPath?: string;
+  textDirection?: string;
+}
+
+const {
+  title,
+  description = 'FlyonUIPro is the best FlyonUI dashboard for responsive web apps. Streamline your app development process with ease.',
+  theme = 'light',
+  assetsPath = '/',
+  layoutPath = 'free-landing-page/',
+  textDirection = 'rtl'
+} = Astro.props;
+
+import { siteConfig } from '../config.js';
+const templateDescription = ` ~ ${siteConfig.templateName} A free, open-source, responsive landing page template built with Astro and FlyonUI.`;
+
+// // Template configuration (matching Nunjucks variables)
+// const creatorName = "FlyonUI";
+// const creatorUrl = "https://flyonui.com/";
+// const templateName = "FlyonUI";
+// const templateSuffix = "Powered by FlyonUI";
+// const templateDescription = `${templateName}Pro is the best FlyonUI dashboard for responsive web apps. Streamline your app development process with ease.`;
+// const templateKeyword = "FlyonUI dashboard, FlyonUI dashboard, flyonui, html dashboard, web dashboard, frontend dashboard, responsive FlyonUI theme";
+// const licenseUrl = "https://flyonui.com/license/";
+// const productPage = "https://flyonui.com/templates";
+// const productBuyNow = "https://flyonui.com/pro#pricing";
+// const documentation = "https://flyonui.com/docs/pro/templates/";
+// const ogTitle = "Tailwind CSS Dashboard by FlyonUI";
+// const ogImage = "https://cdn.flyonui.com/fy-assets/landing-page/template-page/dashboard/dashboard-default-1.png";
+// const ogType = "product";
+// const support = "https://flyonui.com/support";
+// const moreTemplates = "https://flyonui.com/templates";
+// const changelog = "https://flyonui.com/docs/changelog-pro/";
+// const twitterUrl = "https://x.com/flyonui";
+// const githubUrl = "https://github.com/themeselection/flyonui";
+// const discordUrl = "https://discord.com/invite/kBHkY7DekX";
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-theme={theme.replace('-', '')}
+  data-assets-path={assetsPath}
+  data-layout-path={layoutPath}
+  dir={textDirection}
+  class="scroll-smooth"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>
+      {title} | {siteConfig.templateName} - {siteConfig.templateSuffix}
+    </title>
+
+    <meta name="description" content={description} />
+    <meta name="keywords" content={siteConfig.templateKeyword} />
+    <meta property="og:title" content={siteConfig.ogTitle} />
+    <meta property="og:type" content={siteConfig.ogType} />
+    <meta property="og:image" content={siteConfig.ogImage} />
+    <meta property="og:description" content={templateDescription} />
+    <meta property="og:site_name" content={siteConfig.creatorName} />
+    <meta property="og:url" content={siteConfig.productPage} />
+    <meta property="og:url" content={siteConfig.productPage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Code:wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Vendor CSS -->
+    <slot name="vendor-css" />
+
+    <!-- Theme JS -->
+    <!-- <script is:inline define:vars={{ layoutPath, templateName }}>
+      (function () {
+        try {
+          const root = document.documentElement;
+          const layoutPathClean =
+            layoutPath?.replace("/", "") || "free-landing-page";
+          const localStorageKey = `${layoutPathClean}-theme`;
+
+          // Theme configuration loaded from page-config.json at build time
+          window.THEME_CONFIG = {
+            "free-landing-page": {
+              default: "light",
+              light: "light",
+              dark: "dark",
+              system: { light: "light", dark: "dark" },
+            },
+          };
+
+          // Get current system theme preference
+          const getSystemPreference = () =>
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+          // Resolve theme based on user selection and layout configuration
+          const resolveTheme = (selectedTheme, layoutPath) => {
+            const layoutConfig = window.THEME_CONFIG[layoutPath];
+            if (!layoutConfig)
+              return selectedTheme === "system"
+                ? getSystemPreference()
+                  ? "dark"
+                  : "light"
+                : selectedTheme;
+
+            if (selectedTheme === "system") {
+              const systemConfig = layoutConfig.system;
+              const prefersDark = getSystemPreference();
+              return prefersDark ? systemConfig.dark : systemConfig.light;
+            }
+
+            return (
+              layoutConfig[selectedTheme] ||
+              selectedTheme ||
+              layoutConfig.default ||
+              "light"
+            );
+          };
+
+          const savedTheme = localStorage.getItem(localStorageKey) || "system";
+          const resolvedTheme = resolveTheme(savedTheme, layoutPathClean);
+
+          root.setAttribute("data-theme", resolvedTheme);
+        } catch (e) {
+          console.warn("Early theme script error:", e);
+        }
+      })();
+    </script> -->
+  </head>
+
+  <body>
+    <!-- Layout Content -->
+    <slot />
+    <!-- / Layout Content -->
+
+    <!-- Vendor JS -->
+    <slot name="vendor-js" />
+
+    <!-- Core JS (loaded automatically by Astro) -->
+  </body>
+</html>

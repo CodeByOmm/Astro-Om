@@ -1,0 +1,26 @@
+---
+import CommonLayout from './CommonLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  theme?: string;
+  assetsPath?: string;
+  layoutPath?: string;
+  textDirection?: string;
+}
+
+const props = Astro.props;
+---
+
+<CommonLayout {...props}>
+  <!-- Content -->
+  <slot />
+  <!-- / Content -->
+
+  <!-- Vendor CSS Slot -->
+  <slot name="vendor-css" slot="vendor-css" />
+
+  <!-- Vendor JS Slot -->
+  <slot name="vendor-js" slot="vendor-js" />
+</CommonLayout>

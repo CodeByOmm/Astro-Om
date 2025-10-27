@@ -1,0 +1,35 @@
+---
+import BlankLayout from './BlankLayout.astro';
+import { TEMPLATE_CONFIG, getTemplateDescription } from '../utils/config';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = getTemplateDescription() } = Astro.props;
+---
+
+<BlankLayout
+  title={title}
+  description={description}
+  theme="light"
+  assetsPath="/images/"
+  layoutPath="free-landing-page/"
+  textDirection="ltr"
+>
+  <!-- Vendor CSS for free landing page -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    slot="vendor-css"
+  />
+
+  <!-- Content wrapper -->
+  <div class="bg-base-100">
+    <slot />
+  </div>
+
+  <!-- Vendor JS for free landing page -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr" slot="vendor-js"></script>
+</BlankLayout>

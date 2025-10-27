@@ -1,0 +1,18 @@
+---
+import AboutUs from '../components/AboutUs.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import Navbar from '../components/Navbar.astro';
+import Services from '../components/Services.astro';
+import FreeLandingLayout from '../layouts/Layout.astro';
+---
+
+<FreeLandingLayout title="Free - Landing Page">
+  <Navbar />
+  <main>
+    <Hero />
+    <AboutUs />
+    <Services />
+  </main>
+  <Footer />
+</FreeLandingLayout>
